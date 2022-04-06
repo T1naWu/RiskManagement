@@ -1,5 +1,5 @@
 ---
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: risk-management
 version: 1.0.0
 description: "A simple CAP project."
@@ -36,18 +36,19 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: risk-management-db
-  
+      - name: risk-management-xsuaa
+
   - name: risk-management-approuter
     type: nodejs
     path: approuter
-    requires: 
-      - name: risk-management-xsuaa 
+    requires:
+      - name: risk-management-xsuaa
       - name: srv-api
         group: destinations
         properties:
-          forwardAuthToken: true 
-          strictSSL: true 
-          name: srv-binding 
+          forwardAuthToken: true
+          strictSSL: true
+          name: srv-binding
           url: "~{srv-url}"
     build-parameters:
       requires:
@@ -58,10 +59,9 @@ modules:
 
   - name: risk-management-app
     type: html5
-    path: app 
-    build-parameters: 
+    path: app
+    build-parameters:
       supported-platforms: []
-
 
 resources:
   - name: risk-management-db
@@ -78,21 +78,20 @@ resources:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
-      config: 
-        xsappname: 'risk-management-${space}' 
-        role-collections: 
-        - name: 'RiskManager-${space}' 
-          description: Manage Risks 
-          role-template-references: 
-          - $XSAPPNAME.RiskManager 
-        - name: 'RiskViewer-${space}' 
-          description: View Risks 
-          role-template-references: 
-          - $XSAPPNAME.RiskViewer
+      config:
+        xsappname: "risk-management-${space}"
+        role-collections:
+          - name: "RiskManager-${space}"
+            description: Manage Risks
+            role-template-references:
+              - $XSAPPNAME.RiskManager
+          - name: "RiskViewer-${space}"
+            description: View Risks
+            role-template-references:
+              - $XSAPPNAME.RiskViewer
 
   - name: risk-management-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
       service-plan: lite
-      

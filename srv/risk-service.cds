@@ -13,7 +13,7 @@ service RiskService {
         }
     ])                      as projection on rm.Risks;
 
-    annotate Risk with @odata.draft.enabled;
+    annotate Risks with @odata.draft.enabled;
 
     entity Mitigations @(restrict : [
         {
